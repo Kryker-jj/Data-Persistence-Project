@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
     public Brick BrickPrefab;
+    public JsonReadWriteSystem jsonWork;
     public int LineCount = 6;
     public Rigidbody Ball;
 
@@ -17,7 +19,6 @@ public class MainManager : MonoBehaviour
     private int m_Points;
     
     private bool m_GameOver = false;
-
     
     // Start is called before the first frame update
     void Start()
@@ -68,9 +69,16 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"Score : {m_Points}";
     }
 
+    public int CurrentPoints()
+    {
+        return m_Points;
+    }
+
     public void GameOver()
     {
         m_GameOver = true;
+        jsonWork.SaveToJson();
         GameOverText.SetActive(true);
     }
+
 }
